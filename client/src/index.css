@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.input {
+		background-color: #f1f4ff;
+		padding: 0.5rem;
+		border-radius: 0.5rem;
+		width: auto;
+		font-size: small;
+	}
+}
