@@ -1,6 +1,5 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import cors from "cors";
 import {
 	signupUser,
 	loginUser,
@@ -9,13 +8,6 @@ import {
 } from "../controller/userController.js";
 
 const router = express.Router();
-
-router.use(
-	cors({
-		credentials: true,
-		origin: "https://kylemern.vercel.app",
-	})
-);
 
 // Test
 router.get("/", (req, res) => {
