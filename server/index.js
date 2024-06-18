@@ -12,14 +12,7 @@ const mongoDBURL = process.env.mongoDBURL;
 
 const app = express();
 
-app.use(
-	cors({
-		origin: "https://kylemern.vercel.app", // Front-end URL
-		methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-		credentials: true, // Enable cookies
-		optionsSuccessStatus: 204, // For legacy browser support
-	})
-);
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
