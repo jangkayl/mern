@@ -25,15 +25,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", router);
-app.use("/user", workoutRoute);
-
-app.options("*", cors()); // Handle preflight requests
-
-app.get("/test-cors", (req, res) => {
-	res.json({ message: "CORS is working!" });
-});
-
 mongoose
 	.connect(mongoDBURL)
 	.then(() => {
@@ -45,3 +36,6 @@ mongoose
 	.catch((err) => {
 		console.log(err);
 	});
+
+app.use("/", router);
+app.use("/user", workoutRoute);
