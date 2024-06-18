@@ -19,7 +19,7 @@ const Workout = () => {
 			.then((response) => {
 				if (isMounted) {
 					if (response.data.err) {
-						navigate("/login");
+						navigate("/");
 					} else {
 						dispatch({ type: "SET_WORKOUTS", payload: response.data });
 						toast.success("Here's your workout plan");
@@ -29,7 +29,7 @@ const Workout = () => {
 			.catch(() => {
 				if (isMounted) {
 					toast.error("Error on fetching the data");
-					navigate("/login");
+					navigate("/");
 				}
 			})
 			.finally(() => {

@@ -26,7 +26,7 @@ const Dashboard = () => {
 					withCredentials: true,
 				});
 				if (response.data.err && isMounted) {
-					navigate("/login");
+					navigate("/");
 				} else if (isMounted) {
 					setUser(response.data.userData);
 					setName(response.data.userData.name);
@@ -36,7 +36,7 @@ const Dashboard = () => {
 				if (isMounted) {
 					console.error(err);
 					toast.error("Failed to fetch user data");
-					navigate("/login");
+					navigate("/");
 				}
 			}
 		};
@@ -52,7 +52,7 @@ const Dashboard = () => {
 			await axios.post("/logout", {}, { withCredentials: true });
 			toast.success("Logged out successfully");
 			dispatch({ type: "SET_WORKOUTS", payload: null });
-			navigate("/login");
+			navigate("/");
 		} catch (err) {
 			console.error(err);
 			toast.error("Failed to logout");

@@ -25,6 +25,15 @@ const Signup = () => {
 				password,
 				conPassword,
 			});
+
+			// Validate email format
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				toast.error("Please enter a valid email address");
+				setLoading(false);
+				return;
+			}
+
 			const user = response.data;
 			if (user.err) toast.error(user.err);
 			else {
@@ -35,7 +44,7 @@ const Signup = () => {
 					conPassword: "",
 				});
 				toast.success("User successfully added");
-				navigate("/login");
+				navigate("/");
 			}
 		} catch (err) {
 			console.log(err);
@@ -95,7 +104,7 @@ const Signup = () => {
 				</form>
 				<Link
 					className="text-xs hover:text-blue-600"
-					to={"/login"}>
+					to={"/"}>
 					Already have an account?
 				</Link>
 			</main>
