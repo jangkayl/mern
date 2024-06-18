@@ -11,6 +11,7 @@ const PORT = process.env.PORT;
 const mongoDBURL = process.env.mongoDBURL;
 
 const app = express();
+app.use(cors());
 
 app.use(
 	cors({
