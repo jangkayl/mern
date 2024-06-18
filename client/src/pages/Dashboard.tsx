@@ -23,7 +23,7 @@ const Dashboard = () => {
 		const fetchUserData = async () => {
 			try {
 				const response = await axios.get("/dashboard", {
-					withCredentials: true,
+					withCredentials: false,
 				});
 				if (response.data.err && isMounted) {
 					navigate("/");
@@ -49,7 +49,7 @@ const Dashboard = () => {
 
 	const logoutUser = async () => {
 		try {
-			await axios.post("/logout", {}, { withCredentials: true });
+			await axios.post("/logout", {}, { withCredentials: false });
 			toast.success("Logged out successfully");
 			dispatch({ type: "SET_WORKOUTS", payload: null });
 			navigate("/");

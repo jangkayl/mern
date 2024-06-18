@@ -38,7 +38,7 @@ const WorkoutForm = () => {
 				"/user",
 				{ title, reps, load },
 				{
-					withCredentials: true,
+					withCredentials: false,
 				}
 			);
 
