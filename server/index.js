@@ -11,7 +11,13 @@ const PORT = process.env.PORT;
 const mongoDBURL = process.env.mongoDBURL;
 
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+	origin: "https://kylemern.vercel.app", // The front-end URL
+	optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+};
+
+app.use(cors(corsOptions));
 
 app.use(
 	cors({
