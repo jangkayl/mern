@@ -62,6 +62,13 @@ const Dashboard = () => {
 	const handleEditProfile = async () => {
 		if (!user) return;
 
+		// Validate email format
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			toast.error("Please enter a valid email address");
+			return;
+		}
+
 		const data = { name, email };
 
 		try {

@@ -100,22 +100,42 @@ const loginUser = async (req, res) => {
 
 const editUser = async (req, res) => {
 	try {
-		if (!req.body.name || !req.body.email) {
-			return res.status(400).send({ err: "Send all required fields" });
+		const { name, email } = req.body;
+
+		if (!name || !email) {
+			return res.json({ err: "Please fill all the fields" });
 		}
 
 		const { id } = req.params;
 
-		const user = await User.findByIdAndUpdate(id, req.body, { new: true });
-
-		if (!user) {
-			return res.status(404).json({ err: "User not found" });
+		// Find the current user data
+		const currentUser = await User.findById(id);
+		if (!currentUser) {
+			return res.json({ err: "User not found" });
 		}
 
-		return res.status(200).json({ userData: user });
+		// Check if the new email is already in use by another user
+		const emailExists = await User.findOne({ email });
+		if (emailExists && emailExists._id.toString() !== id) {
+			return res.json({ err: "Email already in use by another user" });
+		}
+
+		// Check if the new data is the same as the current data
+		if (currentUser.name === name && currentUser.email === email) {
+			return res.json({ err: "Need to change something" });
+		}
+
+		// Update the user data
+		const user = await User.findByIdAndUpdate(
+			id,
+			{ name, email },
+			{ new: true }
+		);
+
+		return res.json({ userData: user });
 	} catch (err) {
 		console.log(err.message);
-		res.status(500).send({ err: err.message });
+		res.send({ err: err.message });
 	}
 };
 
