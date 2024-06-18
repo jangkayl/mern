@@ -11,13 +11,8 @@ const PORT = process.env.PORT;
 const mongoDBURL = process.env.mongoDBURL;
 
 const app = express();
-const corsConfig = {
-	origin: "*",
-	credential: true,
-	methods: ["GET", "POST", "PUT", "DELETE"],
-};
-app.options("", cors(corsConfig));
-app.use(cors(corsConfig));
+
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
