@@ -13,7 +13,7 @@ const router = express.Router();
 router.use(
 	cors({
 		credentials: true,
-		origin: "https://kylemern.vercel.app",
+		origin: "https://kylemern.vercel.app/",
 	})
 );
 
