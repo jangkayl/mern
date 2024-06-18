@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 import { Workout } from "../model/workoutModel.js";
 
 const getWorkouts = async (req, res) => {
-	const workouts = await Workout.find({}).sort({ createdAt: -1 });
+	const user_id = req.user.id;
+	const workouts = await Workout.find({ user_id }).sort({ createdAt: -1 });
 	res.json(workouts);
 };
 
@@ -42,7 +43,8 @@ const createWorkout = async (req, res) => {
 				err: "Please enter how many loads in kg",
 			});
 		}
-		const workout = await Workout.create({ title, reps, load });
+		const user_id = req.user.id;
+		const workout = await Workout.create({ title, reps, load, user_id });
 		res.json(workout);
 	} catch (err) {
 		res.json({ err: err.message });

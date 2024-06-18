@@ -56,7 +56,9 @@ const Workout = () => {
 						</Link>
 					</div>
 					{loading ? <p className="text-center">Loading...</p> : ""}
-					{!loading && workouts?.length === 0 && <div>No workout plan</div>}
+					{!loading && workouts?.length === 0 && (
+						<div className="text-center">No workout plan</div>
+					)}
 					<div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-100">
 						{workouts &&
 							workouts.length > 0 &&

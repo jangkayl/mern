@@ -9,7 +9,7 @@ interface Workout {
 }
 
 type Action =
-	| { type: "SET_WORKOUTS"; payload: Workout[] }
+	| { type: "SET_WORKOUTS"; payload: Workout[] | null }
 	| { type: "CREATE_WORKOUT"; payload: Workout }
 	| { type: "DELETE_WORKOUT"; payload: Workout };
 

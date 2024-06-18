@@ -5,6 +5,7 @@ import {
 	signupUser,
 	loginUser,
 	dashboard,
+	editUser,
 } from "../controller/userController.js";
 
 const router = express.Router();
@@ -44,6 +45,9 @@ const verifyToken = (req, res, next) => {
 
 // Get user info for Dashboard
 router.get("/dashboard", verifyToken, dashboard);
+
+// Edit Profile
+router.put("/dashboard/:id", verifyToken, editUser);
 
 // Logout user
 router.post("/logout", (req, res) => {

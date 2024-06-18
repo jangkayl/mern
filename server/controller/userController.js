@@ -98,6 +98,27 @@ const loginUser = async (req, res) => {
 	}
 };
 
+const editUser = async (req, res) => {
+	try {
+		if (!req.body.name || !req.body.email) {
+			return res.status(400).send({ err: "Send all required fields" });
+		}
+
+		const { id } = req.params;
+
+		const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+
+		if (!user) {
+			return res.status(404).json({ err: "User not found" });
+		}
+
+		return res.status(200).json({ userData: user });
+	} catch (err) {
+		console.log(err.message);
+		res.status(500).send({ err: err.message });
+	}
+};
+
 const dashboard = async (req, res) => {
 	try {
 		const user = await User.findById(req.user.id);
@@ -115,4 +136,4 @@ const dashboard = async (req, res) => {
 	}
 };
 
-export { signupUser, loginUser, dashboard };
+export { signupUser, loginUser, dashboard, editUser };
