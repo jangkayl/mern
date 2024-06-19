@@ -49,7 +49,7 @@ const Dashboard = () => {
 
 	const logoutUser = async () => {
 		try {
-			await axios.post("/logout", {}, { withCredentials: true });
+			await axios.post("/logout", {}, { withCredentials: false });
 			toast.success("Logged out successfully");
 			dispatch({ type: "SET_WORKOUTS", payload: null });
 			navigate("/");
