@@ -14,7 +14,7 @@ const app = express();
 
 app.use(
 	cors({
-		origin: ["/*", "*"],
+		origin: ["https://kylemern.vercel.app"],
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
