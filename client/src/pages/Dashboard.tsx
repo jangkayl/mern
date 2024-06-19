@@ -23,7 +23,7 @@ const Dashboard = () => {
 		const fetchUserData = async () => {
 			try {
 				const response = await axios.get("/dashboard", {
-					withCredentials: true,
+					withCredentials: false,
 				});
 				if (response.data.err && isMounted) {
 					navigate("/");
@@ -73,7 +73,7 @@ const Dashboard = () => {
 
 		try {
 			const response = await axios.put(`/dashboard/${user._id}`, data, {
-				withCredentials: true,
+				withCredentials: false,
 			});
 
 			if (response.data.err) {
