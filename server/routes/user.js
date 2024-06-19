@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.use(
 	cors({
-		origin: ["http://kylemern.vercel.app"],
+		origin: ["https://kylemern.vercel.app"],
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})

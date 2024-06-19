@@ -6,7 +6,7 @@ import Workout from "./pages/Workout";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://mern-rho-tawny.vercel.app";
+axios.defaults.baseURL = "https://mern-rho-tawny.vercel.app";
 axios.defaults.withCredentials = true;
 
 function App() {
