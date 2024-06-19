@@ -4,12 +4,21 @@ import mongoose from "mongoose";
 import { router } from "./routes/user.js";
 import cookieParser from "cookie-parser";
 import workoutRoute from "./routes/workout.js";
+import cors from "cors";
 
 dotenv.config();
 const PORT = process.env.PORT;
 const mongoDBURL = process.env.mongoDBURL;
 
 const app = express();
+
+app.use(
+	cors({
+		origin: ["https://kylemern.vercel.app"],
+		methods: ["GET", "POST", "PUT", "DELETE"],
+		credentials: true,
+	})
+);
 
 mongoose
 	.connect(mongoDBURL)

@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors";
 import { verifyToken } from "./user.js";
 import {
 	createWorkout,
@@ -10,14 +9,6 @@ import {
 } from "../controller/workoutController.js";
 
 const router = express.Router();
-
-router.use(
-	cors({
-		origin: ["https://kylemern.vercel.app"],
-		methods: ["GET", "POST", "PUT", "DELETE"],
-		credentials: true,
-	})
-);
 
 // GET ALL workouts
 router.get("/", verifyToken, getWorkouts);
