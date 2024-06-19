@@ -23,7 +23,7 @@ const Login = () => {
 					email,
 					password,
 				},
-				{ withCredentials: false }
+				{ withCredentials: true }
 			);
 			const user = response.data;
 			if (user.err) toast.error(user.err);
