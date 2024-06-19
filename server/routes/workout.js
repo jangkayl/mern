@@ -13,8 +13,9 @@ const router = express.Router();
 
 router.use(
 	cors({
+		origin: ["http://kylemern.vercel.app"],
+		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
-		origin: "http://localhost:5173",
 	})
 );
 
