@@ -34,13 +34,7 @@ const WorkoutForm = () => {
 				});
 			}
 
-			const response = await axios.post(
-				"/user",
-				{ title, reps, load },
-				{
-					withCredentials: true ,
-				}
-			);
+			const response = await axios.post("/user", { title, reps, load });
 
 			const workout = response.data;
 
