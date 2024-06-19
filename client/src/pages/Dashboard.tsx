@@ -73,7 +73,7 @@ const Dashboard = () => {
 
 		try {
 			const response = await axios.put(`/dashboard/${user._id}`, data, {
-				withCredentials: false,
+				withCredentials: true,
 			});
 
 			if (response.data.err) {
