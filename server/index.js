@@ -12,9 +12,17 @@ const mongoDBURL = process.env.mongoDBURL;
 
 const app = express();
 
+app.options(
+	"",
+	cors({
+		origin: "*",
+		methods: ["GET", "POST", "PUT", "DELETE"],
+		credentials: true,
+	})
+);
 app.use(
 	cors({
-		origin: ["https://kylemern.vercel.app"],
+		origin: "*",
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
