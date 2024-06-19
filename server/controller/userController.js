@@ -1,5 +1,5 @@
 import { User } from "../model/userModel.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const signupUser = async (req, res) => {
@@ -34,13 +34,7 @@ const signupUser = async (req, res) => {
 			return res.json({ err: "Passwords do not match" });
 
 		// Hash password
-		const hashedPassword = await new Promise((resolve, reject) => {
-			bcrypt.genSalt(10, (err, salt) => {
-				bcrypt.hash(password, salt, (err, hash) => {
-					resolve(hash);
-				});
-			});
-		});
+		const hashedPassword = await bcrypt.hash(password, 10);
 
 		const user = await User.create({
 			name,
@@ -85,7 +79,7 @@ const loginUser = async (req, res) => {
 				process.env.JWT_SECRET,
 				{ expiresIn: "1h" },
 				(err, token) => {
-					if (err) throw token;
+					if (err) throw err;
 					res.cookie("token", token, { httpOnly: true }).json(user);
 				}
 			);
