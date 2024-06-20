@@ -23,7 +23,7 @@ const Dashboard = () => {
 		const fetchUserData = async () => {
 			try {
 				const response = await axios.get("/dashboard", {
-					withCredentials: false,
+					withCredentials: true,
 				});
 				if (response.data.err) {
 					navigate("/");
