@@ -19,22 +19,17 @@ const Login = () => {
 		try {
 			const response = await axios.post(
 				"/login",
-				{
-					email,
-					password,
-				},
-				{
-					withCredentials: true,
-				}
+				{ email, password },
+				{ withCredentials: false }
 			);
-			const user = response.data;
-			if (user.err) toast.error(user.err);
-			else {
-				setUser({
-					email: "",
-					password: "",
-				});
-				toast(`Hello ${user.name}`, {
+			const { token, name, err } = response.data;
+			if (err) {
+				toast.error(err);
+			} else {
+				// Save token to localStorage or sessionStorage
+				localStorage.setItem("jwt_token", token);
+				setUser({ email: "", password: "" });
+				toast(`Hello ${name}`, {
 					icon: "👏",
 					style: {
 						borderRadius: "10px",

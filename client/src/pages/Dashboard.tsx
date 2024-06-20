@@ -23,7 +23,7 @@ const Dashboard = () => {
 		const fetchUserData = async () => {
 			try {
 				const response = await axios.get("/dashboard", {
-					withCredentials: true,
+					withCredentials: false,
 				});
 				if (response.data.err) {
 					navigate("/");
@@ -53,7 +53,7 @@ const Dashboard = () => {
 				"/logout",
 				{},
 				{
-					withCredentials: true,
+					withCredentials: false,
 				}
 			);
 			toast.success("Logged out successfully");
@@ -79,7 +79,7 @@ const Dashboard = () => {
 
 		try {
 			const response = await axios.put(`/dashboard/${user._id}`, data, {
-				withCredentials: true,
+				withCredentials: false,
 			});
 
 			if (response.data.err) {
