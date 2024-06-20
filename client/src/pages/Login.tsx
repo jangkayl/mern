@@ -24,7 +24,7 @@ const Login = () => {
 					password,
 				},
 				{
-					withCredentials: true,
+					withCredentials: false,
 				}
 			);
 			const user = response.data;
