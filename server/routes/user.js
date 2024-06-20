@@ -36,10 +36,10 @@ const verifyToken = (req, res, next) => {
 };
 
 // Get user info for Dashboard
-router.get("/dashboard", verifyToken, dashboard);
+router.get("/dashboard", dashboard);
 
 // Edit Profile
-router.put("/dashboard/:id", verifyToken, editUser);
+router.put("/dashboard/:id", editUser);
 
 // Logout user
 router.post("/logout", (req, res) => {
