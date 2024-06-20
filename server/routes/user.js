@@ -1,56 +1,145 @@
-import express from "express";
-import jwt from "jsonwebtoken";
-import {
-	signupUser,
-	loginUser,
-	dashboard,
-	editUser,
-} from "../controller/userController.js";
+import { User } from "../model/userModel.js";
+import bcrypt from "bcryptjs";
 
-const router = express.Router();
+const signupUser = async (req, res) => {
+	try {
+		const { name, email, password, conPassword } = req.body;
+		if (!name && !email && !password && !conPassword)
+			return res.json({
+				err: "Please input all the fields",
+			});
+		if (!name)
+			return res.json({
+				err: "Name is required",
+			});
+		if (!email)
+			return res.json({
+				err: "Please enter an email",
+			});
+		const exist = await User.findOne({ email });
+		if (exist)
+			return res.json({
+				err: "Email already exists, please enter another email",
+			});
+		if (!password)
+			return res.json({
+				err: "Please enter a password",
+			});
+		if (!conPassword)
+			return res.json({
+				err: "Please confirm your password",
+			});
+		if (password !== conPassword)
+			return res.json({ err: "Passwords do not match" });
 
-// Test
-router.get("/", (req, res) => {
-	res.json({
-		err: "Test is working",
-	});
-});
+		// Hash password
+		const hashedPassword = await bcrypt.hash(password, 10);
 
-// Signup
-router.post("/signup", signupUser);
+		const user = await User.create({
+			name,
+			email,
+			password: hashedPassword,
+		});
 
-// Login
-router.post("/login", loginUser);
-
-// Verify JWT token
-const verifyToken = (req, res, next) => {
-	const authHeader = req.headers["authorization"];
-	const token = authHeader && authHeader.split(" ")[1];
-
-	if (token == null) return res.sendStatus(401);
-
-	jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+		return res.json(user);
+	} catch (err) {
 		console.log(err);
-
-		if (err) return res.sendStatus(403);
-
-		req.user = user;
-
-		next();
-	});
+		res.json({
+			err: "Server error",
+		});
+	}
 };
 
-// Get user info for Dashboard
-router.get("/dashboard", verifyToken, dashboard);
+const loginUser = async (req, res) => {
+	try {
+		const { email, password } = req.body;
+		if (!email && !password)
+			return res.json({
+				err: "Please input all fields",
+			});
+		if (!email)
+			return res.json({
+				err: "Please enter an email",
+			});
+		if (!password)
+			return res.json({
+				err: "Please enter a password",
+			});
 
-// Edit Profile
-router.put("/dashboard/:id", verifyToken, editUser);
+		const user = await User.findOne({ email });
+		if (!user)
+			return res.json({
+				err: "No user found",
+			});
+		const match = await bcrypt.compare(password, user.password);
+		if (match) {
+			return res.status(200).json({ name: user.name });
+		} else
+			return res.json({
+				err: "Incorrect password",
+			});
+	} catch (err) {
+		console.log(err);
+	}
+};
 
-// Logout user
-router.post("/logout", (req, res) => {
-	res
-		.clearCookie("token", "", { expires: new Date(0) })
-		.json({ err: "Logout successfully" });
-});
+const editUser = async (req, res) => {
+	try {
+		const { name, email } = req.body;
 
-export { router, verifyToken };
+		if (!name || !email) {
+			return res.json({ err: "Please fill all the fields" });
+		}
+
+		const { id } = req.params;
+
+		// Find the current user data
+		const currentUser = await User.findById(id);
+		if (!currentUser) {
+			return res.json({ err: "User not found" });
+		}
+
+		// Check if the new email is already in use by another user
+		const emailExists = await User.findOne({ email });
+		if (emailExists && emailExists._id.toString() !== id) {
+			return res.json({ err: "Email already in use by another user" });
+		}
+
+		// Check if the new data is the same as the current data
+		if (currentUser.name === name && currentUser.email === email) {
+			return res.json({ err: "Need to change something" });
+		}
+
+		// Update the user data
+		const user = await User.findByIdAndUpdate(
+			id,
+			{ name, email },
+			{ new: true }
+		);
+
+		return res.json({ userData: user });
+	} catch (err) {
+		console.log(err.message);
+		res.send({ err: err.message });
+	}
+};
+
+const dashboard = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const user = await User.findById(id);
+
+		if (!user) return res.json({ err: "User not found" });
+
+		return res.json({
+			userData: user,
+		});
+	} catch (err) {
+		console.log(err);
+		res.json({
+			err: "Server error",
+		});
+	}
+};
+
+export { signupUser, loginUser, dashboard, editUser };

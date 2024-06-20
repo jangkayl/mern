@@ -11,18 +11,18 @@ import {
 const router = express.Router();
 
 // GET ALL workouts
-router.get("/", verifyToken, getWorkouts);
+router.get("/", getWorkouts);
 
 // GET single workout
-router.get("/:id", verifyToken, getWorkout);
+router.get("/:id", getWorkout);
 
 // POST a new workout
-router.post("/", verifyToken, createWorkout);
+router.post("/", createWorkout);
 
 // DELETE a workout
-router.delete("/:id", verifyToken, deleteWorkout);
+router.delete("/:id", deleteWorkout);
 
 // UPDATE a workout
-router.patch("/:id", verifyToken, updateWorkout);
+router.patch("/:id", updateWorkout);
 
 export default router;
