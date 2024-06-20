@@ -16,7 +16,7 @@ const Workout = () => {
 		let isMounted = true;
 		axios
 			.get("/user", {
-				withCredentials: true,
+				withCredentials: false,
 			})
 			.then((response) => {
 				if (isMounted) {

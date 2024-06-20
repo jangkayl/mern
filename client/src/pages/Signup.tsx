@@ -28,7 +28,7 @@ const Signup = () => {
 					conPassword,
 				},
 				{
-					withCredentials: true,
+					withCredentials: false,
 				}
 			);
 
