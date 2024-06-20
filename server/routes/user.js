@@ -24,15 +24,20 @@ router.post("/login", loginUser);
 
 // Verify JWT token
 const verifyToken = (req, res, next) => {
-	const token = req.cookies.token;
-	if (!token) return res.json({ err: "Access denied" }, token);
-	try {
-		const verified = jwt.verify(token, process.env.JWT_SECRET);
-		req.user = verified;
+	const authHeader = req.headers["authorization"];
+	const token = authHeader && authHeader.split(" ")[1];
+
+	if (token == null) return res.sendStatus(401);
+
+	jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+		console.log(err);
+
+		if (err) return res.sendStatus(403);
+
+		req.user = user;
+
 		next();
-	} catch (err) {
-		res.json({ err: "Invalid token" });
-	}
+	});
 };
 
 // Get user info for Dashboard
