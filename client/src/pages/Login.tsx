@@ -42,6 +42,12 @@ const Login = () => {
 						color: "#fff",
 					},
 				});
+				// Save the token to localStorage
+				localStorage.setItem("token", response.data.token);
+				// Set the default Authorization header
+				axios.defaults.headers.common[
+					"Authorization"
+				] = `Bearer ${response.data.token}`;
 				navigate("/dashboard");
 			}
 		} catch (err) {
