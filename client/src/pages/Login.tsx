@@ -27,7 +27,7 @@ const Login = () => {
 				toast.error(err);
 			} else {
 				// Save token to localStorage or sessionStorage
-				localStorage.setItem("jwt_token", token);
+				document.cookie = `jwt_token=${token}`;
 				setUser({ email: "", password: "" });
 				toast(`Hello ${name}`, {
 					icon: "👏",
