@@ -7,13 +7,7 @@ import { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 axios.defaults.baseURL = "https://mern-api-delta.vercel.app";
-axios.defaults.withCredentials = true;
-
-// Retrieve the token from localStorage and set it in axios headers
-const token = localStorage.getItem("token");
-if (token) {
-	axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-}
+axios.defaults.withCredentials = false;
 
 function App() {
 	return (
