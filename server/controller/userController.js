@@ -1,6 +1,5 @@
 import { User } from "../model/userModel.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 const signupUser = async (req, res) => {
 	try {
@@ -74,17 +73,7 @@ const loginUser = async (req, res) => {
 			});
 		const match = await bcrypt.compare(password, user.password);
 		if (match) {
-			jwt.sign(
-				{ email: user.email, id: user._id, name: user.name },
-				process.env.JWT_SECRET,
-				{ expiresIn: "1h" },
-				(err, token) => {
-					if (err) {
-						return res.status(500).json({ err: "Error generating token" });
-					}
-					res.status(200).json({ token, name: user.name });
-				}
-			);
+			return res.status(200).json({ name: user.name });
 		} else
 			return res.json({
 				err: "Incorrect password",
@@ -137,7 +126,8 @@ const editUser = async (req, res) => {
 
 const dashboard = async (req, res) => {
 	try {
-		const user = await User.findById(req.user.id);
+		const { id } = req.params;
+		const user = await User.findById(id);
 
 		if (!user) return res.json({ err: "User not found" });
 
