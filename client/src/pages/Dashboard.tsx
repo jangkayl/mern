@@ -25,7 +25,7 @@ const Dashboard = () => {
 				const response = await axios.get("/dashboard", {
 					withCredentials: false,
 				});
-				if (response.data.err && isMounted) {
+				if (response.data.err) {
 					navigate("/");
 				} else if (isMounted) {
 					setUser(response.data.userData);

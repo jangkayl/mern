@@ -79,15 +79,15 @@ const loginUser = async (req, res) => {
 				process.env.JWT_SECRET,
 				{ expiresIn: "1h" },
 				(err, token) => {
-					res
-						.cookie("jwt_token", token, {
-							httpOnly: true,
-							secure: false,
-							sameSite: "strict",
-						})
-						.json(user);
-					res.status(200).send("JWT set in cookie");
-					if (err) throw err;
+					if (err) {
+						return res.status(500).json({ err: "Error generating token" });
+					}
+					res.cookie("jwt_token", token, {
+						httpOnly: true, // Accessible only by the web server
+						secure: process.env.NODE_ENV === "production", // Send only over HTTPS
+						sameSite: "strict", // Protect against CSRF
+					});
+					res.status(200).json({ message: "JWT set in cookie" });
 				}
 			);
 		} else
