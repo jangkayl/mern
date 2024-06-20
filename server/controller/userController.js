@@ -73,7 +73,7 @@ const loginUser = async (req, res) => {
 				err: "No user found",
 			});
 		const match = await bcrypt.compare(password, user.password);
-		if (match)
+		if (match) {
 			jwt.sign(
 				{ email: user.email, id: user._id, name: user.name },
 				process.env.JWT_SECRET,
@@ -81,8 +81,8 @@ const loginUser = async (req, res) => {
 				(err, token) => {
 					res
 						.cookie("jwt_token", token, {
-							httpOnly: false,
-							secure: true,
+							httpOnly: true,
+							secure: false,
 							sameSite: "strict",
 						})
 						.json(user);
@@ -90,7 +90,7 @@ const loginUser = async (req, res) => {
 					if (err) throw err;
 				}
 			);
-		else
+		} else
 			return res.json({
 				err: "Incorrect password",
 			});

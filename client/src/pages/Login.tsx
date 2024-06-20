@@ -42,6 +42,7 @@ const Login = () => {
 						color: "#fff",
 					},
 				});
+				document.cookie = "token=token";
 				navigate("/dashboard");
 			}
 		} catch (err) {
