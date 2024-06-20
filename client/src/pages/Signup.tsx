@@ -19,12 +19,18 @@ const Signup = () => {
 		const { name, email, password, conPassword } = user;
 		setLoading(true);
 		try {
-			const response = await axios.post("/signup", {
-				name,
-				email,
-				password,
-				conPassword,
-			});
+			const response = await axios.post(
+				"/signup",
+				{
+					name,
+					email,
+					password,
+					conPassword,
+				},
+				{
+					withCredentials: true,
+				}
+			);
 
 			// Validate email format
 			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

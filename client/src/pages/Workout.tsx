@@ -15,7 +15,9 @@ const Workout = () => {
 	useEffect(() => {
 		let isMounted = true;
 		axios
-			.get("/user")
+			.get("/user", {
+				withCredentials: true,
+			})
 			.then((response) => {
 				if (isMounted) {
 					if (response.data.err) {

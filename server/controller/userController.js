@@ -80,11 +80,7 @@ const loginUser = async (req, res) => {
 				{ expiresIn: "1h" },
 				(err, token) => {
 					if (err) throw err;
-					res
-						.cookie("token", token, {
-							httpOnly: true,
-						})
-						.json(user);
+					res.cookie("token", token).json(user);
 				}
 			);
 		else

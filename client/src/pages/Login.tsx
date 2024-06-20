@@ -17,10 +17,16 @@ const Login = () => {
 		const { email, password } = user;
 		setLoading(true);
 		try {
-			const response = await axios.post("/login", {
-				email,
-				password,
-			});
+			const response = await axios.post(
+				"/login",
+				{
+					email,
+					password,
+				},
+				{
+					withCredentials: true,
+				}
+			);
 			const user = response.data;
 			if (user.err) toast.error(user.err);
 			else {
