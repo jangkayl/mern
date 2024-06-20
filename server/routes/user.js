@@ -25,8 +25,7 @@ router.post("/login", loginUser);
 // Verify JWT token
 const verifyToken = (req, res, next) => {
 	const token = req.cookies.token;
-	res.json(token);
-	if (!token) return res.json({ err: "Access denied" });
+	if (!token) return res.json({ err: "Access denied" }, token);
 	try {
 		const verified = jwt.verify(token, process.env.JWT_SECRET);
 		req.user = verified;
