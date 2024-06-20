@@ -1,5 +1,4 @@
 import express from "express";
-import { verifyToken } from "./user.js";
 import {
 	createWorkout,
 	getWorkout,

@@ -34,4 +34,4 @@ router.post("/logout", (req, res) => {
 		.json({ err: "Logout successfully" });
 });
 
-export { router, verifyToken };
+export { router };
