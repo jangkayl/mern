@@ -16,9 +16,7 @@ const WorkoutDetails: React.FC<{ workout: WorkoutProps }> = ({ workout }) => {
 
 	const handleDelete = async () => {
 		try {
-			const response = await axios.delete(`/user/${workout._id},`, {
-				withCredentials: false,
-			});
+			const response = await axios.delete(`/user/${workout._id},`);
 
 			if (response.status === 200) {
 				dispatch({ type: "DELETE_WORKOUT", payload: response.data });

@@ -17,11 +17,7 @@ const Login = () => {
 		const { email, password } = user;
 		setLoading(true);
 		try {
-			const response = await axios.post(
-				"/login",
-				{ email, password },
-				{ withCredentials: false }
-			);
+			const response = await axios.post("/login", { email, password });
 			const { token, name, err } = response.data;
 			if (err) {
 				toast.error(err);

@@ -126,8 +126,8 @@ const editUser = async (req, res) => {
 
 const dashboard = async (req, res) => {
 	try {
-		const { _id } = req.params;
-		const user = await User.findById(_id);
+		const { id } = req.params;
+		const user = await User.findById(id);
 
 		if (!user) return res.json({ err: "User not found" });
 

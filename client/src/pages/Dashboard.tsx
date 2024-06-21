@@ -22,9 +22,7 @@ const Dashboard = () => {
 		let isMounted = true;
 		const fetchUserData = async () => {
 			try {
-				const response = await axios.get("/dashboard", {
-					withCredentials: false,
-				});
+				const response = await axios.get("/dashboard");
 				if (response.data.err && isMounted) {
 					navigate("/");
 				} else if (isMounted) {
@@ -49,13 +47,7 @@ const Dashboard = () => {
 
 	const logoutUser = async () => {
 		try {
-			await axios.post(
-				"/logout",
-				{},
-				{
-					withCredentials: false,
-				}
-			);
+			await axios.post("/logout", {});
 			toast.success("Logged out successfully");
 			dispatch({ type: "SET_WORKOUTS", payload: null });
 			navigate("/");
@@ -78,9 +70,7 @@ const Dashboard = () => {
 		const data = { name, email };
 
 		try {
-			const response = await axios.put(`/dashboard/${user._id}`, data, {
-				withCredentials: false,
-			});
+			const response = await axios.put(`/dashboard/${user._id}`, data);
 
 			if (response.data.err) {
 				toast.error(response.data.err);
