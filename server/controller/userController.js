@@ -129,7 +129,7 @@ const dashboard = async (req, res) => {
 		const { id } = req.params;
 		const user = await User.findById(id);
 
-		if (!user) return res.json({ err: "User not found" });
+		if (!user) return res.json({ err: "User not found dashboard" });
 
 		return res.json({
 			userData: user,
